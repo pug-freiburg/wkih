@@ -1,2 +1,2 @@
 # wkih
-WIe-kann-ich-helfen Web-App
+Wie-kann-ich-helfen Web-App
