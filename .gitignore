@@ -4,3 +4,7 @@ __pycache__/
 
 # IntelliJ / PyCharm project stuff
 .idea
+
+# python helper tools
+/.coverage
+/.ropeproject
