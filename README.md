@@ -2,14 +2,19 @@
 
 ## Getting started with development
 
-- Prerequisites: git, python, pip and virtualenv
-- Clone this repository
-- Create and activate a virtualenv
-- Install requirements with `bin/init`
+- Prerequisites: git, python
+- Clone this repository and cd into its directory
+- Run `python bootstrap.py`
+
+**Important:** Make you call bootstrap.py with the python version that you want
+to use for development. Example: `C:\Python34\python.exe bootstrap.py`
+
+To activate the virtualenv run `$ . venv/bin/activate` on OS X and Linux
+or `venv\scripts\activate` on Windows. Deactivate by running `deactivate`
 
 ## Starting the development server
 
-You can start the development server with `bin/run`. Open your browser at
+You can start the development server with `run`. Open your browser at
 `http://localhost:5000` to view the app.
 
 ## Developing new features
@@ -32,8 +37,8 @@ Always write tests for your features. The unit test suite can be found under
 
 Before commiting:
 
- * Run the test suite with `bin/test`
- * Run the linter with `bin/lint`
+ * Run the test suite with `test`
+ * Run the linter with `lint`
 
 Don't commit code that doesn't lint, or more importantly doesn't test. Aim to
 improve test coverage with every commit.
@@ -47,3 +52,13 @@ We will probably provide a git hook for this, at some point.
 Use github to open pull requests from your branch into master. If you have a
 mentor ask him to review the code for you before the branch is accepted and
 merged.
+
+
+### Development commands
+
+After bootstrapping these development commands are installed and available:
+
+ - `init` - Install requirements
+ - `lint` - Run the linter
+ - `run`  - Run the development server
+ - `test`  - Run tests
