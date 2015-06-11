@@ -6,8 +6,8 @@
 - Clone this repository and cd into its directory
 - Run `python bootstrap.py`
 
-**Important:** Make you call bootstrap.py with the python version that you want
-to use for development. Example: `C:\Python34\python.exe bootstrap.py`
+**Important:** Make sure you call bootstrap.py with the python version that you
+want to use for development. Example: `C:\Python34\python.exe bootstrap.py`
 
 To activate the virtualenv run `$ . venv/bin/activate` on OS X and Linux
 or `venv\scripts\activate` on Windows. Deactivate by running `deactivate`
