@@ -2,12 +2,13 @@
 
 ## Getting started with development
 
-- Prerequisites: git, python
+- Prerequisites: git, python, virtualenv
 - Clone this repository and cd into its directory
 - Run `python bootstrap.py`
 
 **Important:** Make sure you call bootstrap.py with the python version that you
-want to use for development. Example: `C:\Python34\python.exe bootstrap.py`
+want to use for development. For example `python3 bootstrap.py` or
+`C:\Python34\python.exe bootstrap.py` on Windows.
 
 To activate the virtualenv run `$ . venv/bin/activate` on OS X and Linux
 or `venv\scripts\activate` on Windows. Deactivate by running `deactivate`
