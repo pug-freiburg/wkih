@@ -8,3 +8,9 @@ __pycache__/
 # python helper tools
 /.coverage
 /.ropeproject
+
+# python virtualenv
+/venv
+
+# develop installation
+wkih.egg-info
