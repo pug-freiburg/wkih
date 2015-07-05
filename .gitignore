@@ -11,3 +11,8 @@ __pycache__/
 
 # ignore node for now
 node_modules
+# python virtualenv
+/venv
+
+# develop installation
+wkih.egg-info
