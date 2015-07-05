@@ -8,3 +8,6 @@ __pycache__/
 # python helper tools
 /.coverage
 /.ropeproject
+
+# ignore node for now
+node_modules
