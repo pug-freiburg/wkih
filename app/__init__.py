@@ -1,34 +1,32 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, request
+from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///wkih.sqlite"
+db = SQLAlchemy(app)
 
 
-def project_api():
-    return [
-        {
-            "id": 1,
-            "name": "Fahrräder für Flüchtlinge",
-            "necessities": [
-                {
-                    "name": "Fahrräder",
-                    "description": "Wir brauchen gebrauchte Fahrräder.",
-                    "quantity_required": 10,
-                    "quantity_pledged": 3,
-                    "unit": "items",
-                    "id": 1,
-                },
-                {
-                    "name": "Werkstatt",
-                    "description": "Wir brauchen Zugriff auf eine Werkstatt.",
-                    "quantity_required": 7,
-                    "quantity_pledged": 3,
-                    "unit": "hours",
-                    "id": 2,
-                }
-            ]
-        }
-    ]
+class Project(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text, unique=True)
+    description = db.Column(db.Text)
+
+    contact_id = db.Column(
+        db.Integer, db.ForeignKey('contact.id'), nullable=False)
+    contact = db.relationship(
+        'Contact',
+        backref=db.backref('projects', lazy='dynamic')
+    )
+
+
+class Contact(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.Text, nullable=False)
+    phone_number = db.Column(db.Text)
+
+
+db.create_all()
 
 
 @app.route('/')
@@ -36,7 +34,24 @@ def home_view():
     return render_template("base.html")
 
 
-@app.route("/project")
+@app.route('/bootstrap')
+def bootstrap():
+    return render_template("bootstrap.html")
+
+
+@app.route("/project", methods=["GET", "POST"])
 def project_view():
-    projects = project_api()
+    if request.method == "POST":
+        contact = Contact(
+            email=request.form["email"],
+            phone_number=request.form["phone_number"],
+        )
+        db.session.add(Project(
+            name=request.form["name"],
+            description=request.form["description"],
+            contact=contact,
+        ))
+        db.session.commit()
+
+    projects = Project.query.all()
     return render_template("project.html", projects=projects)
