@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+  <div class="jumbotron">
+    <h1>Projekte</h1>
+  </div>
+  {% for project in projects %}
+  <div class="page-header">
+    <h2>{{ project.name }}</h2>
+  </div>
+  <div class="row">
+    {% for necessity in project.necessities %}
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{ necessity.name }}</h3>
+        </div>
+        <div class="panel-body">
+          <p>{{ necessity.description }}</p>
+          <p>{{ necessity.quantity_pledged }} von {{ necessity.quantity_required }} {{ necessity.unit }}.</p>
+        </div>
+        <div class="progress">
+          <div
+            class="progress-bar"
+            role="progressbar"
+            style="width: {{ necessity.quantity_pledged / necessity.quantity_required * 100 }}%"
+            aria-valuenow="{{ necessity.quantity_pledged }}"
+            aria-valuemax="{{ necessity.quantity_required }}" 
+            aria-valuemin="0">
+
+            <span class="sr-only">{{ necessity.quantity_pledged }} von {{ necessity.quantity_required }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  {% endfor %}
+  </div>
+</div>
+{% endblock %}
