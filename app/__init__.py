@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from collections import OrderedDict
+
 from flask import Flask, render_template, request
 from flask.ext.sqlalchemy import SQLAlchemy
 
@@ -53,5 +55,18 @@ def project_view():
         ))
         db.session.commit()
 
+    # maps the forms' name to its label
+    form_fields = OrderedDict(
+        (
+            ("name", "Name"),
+            ("email", "Email"),
+            ("phone_number", "Telefon"),
+            ("description", "Beschreibung"),
+        )
+    )
     projects = Project.query.all()
-    return render_template("project.html", projects=projects)
+    return render_template(
+        "project.html",
+        projects=projects,
+        form_fields=form_fields
+    )

@@ -6,50 +6,44 @@
   <div class="jumbotron">
     <h1>Projekte</h1>
   </div>
-  <form action="" method="POST">
-    <label for="name">Name:</label><input name="name" /> <br />
-    <label for="description">Beschreibung:</label>
-      <input name="description" /> <br />
-    <label for="email">Email:</label>
-    <input name="email" /> <br />
-    <label for="phone_number">Telefon:</label>
-    <input name="phone_number" /> <br />
-    <button type="submit">Speichern</button>
-  </form>
-  {% for project in projects %}
-  <div class="page-header">
-    <h2>{{ project.name }}</h2>
-    <p>{{ project.description }}</p>
-    <p>Email: {{ project.contact.email }}</p>
-    <p>Telefonnummer: {{ project.contact.phone_number }}</p>
-  </div>
   <div class="row">
-    {% for necessity in project.necessities %}
+    <div class="row col-sm-7">
+      <form action="" method="POST" role="form" class="form-horizontal">
+      {% for name, label in form_fields.items() %}
+      <div class="form-group">
+        <label for="{{ name }}" class="control-label col-sm-2">{{ label }}:</label>
+        <div class="col-sm-10">
+          {% if name=="description" %}
+          <textarea name="{{ name }}" class="form-control"/></textarea>
+          {% elif name=="email" %}
+          <input type="email" name="{{ name }}" class="form-control"/>
+          {% else %}
+          <input type="text" name="{{ name }}" class="form-control"/>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+      <div class="col-sm-offset-2">
+        <button type="submit" class="btn btn-default">Speichern</button>
+    </div>
+  </form>
+  </div>
+  </div>
+  <div class="row top-buffer">
+  {% for project in projects %}
     <div class="col-sm-4">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">{{ necessity.name }}</h3>
+          <h3 class="panel-title">{{ project.name }}</h3>
         </div>
         <div class="panel-body">
-          <p>{{ necessity.description }}</p>
-          <p>{{ necessity.quantity_pledged }} von {{ necessity.quantity_required }} {{ necessity.unit }}.</p>
-        </div>
-        <div class="progress">
-          <div
-            class="progress-bar"
-            role="progressbar"
-            style="width: {{ necessity.quantity_pledged / necessity.quantity_required * 100 }}%"
-            aria-valuenow="{{ necessity.quantity_pledged }}"
-            aria-valuemax="{{ necessity.quantity_required }}" 
-            aria-valuemin="0">
-
-            <span class="sr-only">{{ necessity.quantity_pledged }} von {{ necessity.quantity_required }}</span>
-          </div>
+          <p>{{ project.description }}</p>
+          <p>Email: {{ project.contact.email }}</p>
+          <p>Telefonnummer: {{ project.contact.phone_number }}</p>
         </div>
       </div>
     </div>
     {% endfor %}
   </div>
-  {% endfor %}
 </div>
 {% endblock %}
